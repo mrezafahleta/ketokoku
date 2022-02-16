@@ -24,7 +24,7 @@ class HomeAdmin extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '${UserSession.name}',
+                      UserSession.name,
                       style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,

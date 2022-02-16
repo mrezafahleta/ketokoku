@@ -9,12 +9,10 @@ class ItemService {
 
   Future<List<Item>> getItems({required String token}) async {
     final response = await http
-        .get(Uri.parse(baseUrlEmulator + 'items'), headers: <String, String>{
+        .get(Uri.parse(baseUrlHp + 'items'), headers: <String, String>{
       'Content-Type': 'application/json;  charset=UTF-8',
       'Authorization': token.toString(),
     });
-
-    print(jsonDecode(response.body)['items']);
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body)['items'] as List;

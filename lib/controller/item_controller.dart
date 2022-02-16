@@ -22,13 +22,13 @@ class ItemController extends GetxController {
   Future<void> fetchItem() async {
     try {
       _isLoading.value = true;
-      final data_items = await ItemService().getItems(token: UserSession.token);
+      final dataItems = await ItemService().getItems(token: UserSession.token);
 
       // ignore: unnecessary_null_comparison
-      if (data_items == null) {
+      if (dataItems == null) {
         _isDataEmpty.value = true;
       } else {
-        _items.assignAll(data_items);
+        _items.assignAll(dataItems);
       }
     } finally {
       _isLoading.value = false;

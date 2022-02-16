@@ -7,6 +7,7 @@ class Item {
   Category? category;
   final String namaItems;
   final int harga;
+  final String hargaRp;
   final int jumlah;
   final String tanggalMasuk;
 
@@ -16,6 +17,7 @@ class Item {
       required this.category,
       required this.namaItems,
       required this.harga,
+      required this.hargaRp,
       required this.jumlah,
       required this.tanggalMasuk});
 
@@ -29,6 +31,7 @@ class Item {
             : Category?.fromJson(json['category']),
         namaItems: json['item'],
         harga: json['harga'],
+        hargaRp: json['harga_rupiah'],
         jumlah: json['jumlah'],
         tanggalMasuk: json['tanggal_masuk']);
   }
@@ -40,6 +43,7 @@ class Item {
       'category': category,
       'item': namaItems,
       'harga': harga,
+      'harga_rupiah': hargaRp,
       'jumlah': jumlah,
       'tanggal_masuk': tanggalMasuk
     };

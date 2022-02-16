@@ -7,7 +7,7 @@ class UserServices {
   final String baseUrlHp = "http://192.168.96.83:8000/api/";
   final String baseUrlEmulator = "http://10.0.2.2:8000/api/";
   Future<User> login({required String email, required String password}) async {
-    final response = await http.post(Uri.parse(baseUrlEmulator + "login"),
+    final response = await http.post(Uri.parse(baseUrlHp + "login"),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
