@@ -9,22 +9,25 @@ class ItemsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text('Stok Barang'),
-        ),
-        body: Obx(() {
-          if (controller.isLoading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          return ListView.builder(
-            itemCount: controller.items.length,
-            itemBuilder: (context, index) {
-              return CardItem(item: controller.items[index]);
-            },
+      body: Obx(() {
+        if (controller.isLoading) {
+          return const Center(
+            child: CircularProgressIndicator(),
           );
-        }));
+        }
+        return ListView.builder(
+          itemCount: controller.items.length,
+          itemBuilder: (context, index) {
+            return CardItem(item: controller.items[index]);
+          },
+        );
+      }),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.toNamed('/tambah_item');
+        },
+        child: const Icon(Icons.add),
+      ),
+    );
   }
 }

@@ -1,25 +1,22 @@
 import 'dart:convert';
 
-import 'package:ketokoku/models/item.dart';
 import 'package:http/http.dart' as http;
 
-class ItemService {
+class CategoryService {
   final String baseUrlHp = "http://192.168.78.167:8000/api/";
   final String baseUrlEmulator = "http://10.0.2.2:8000/api/";
 
-  Future<List<Item>> getItems({required String token}) async {
+  Future<List> fetchCategory({required String token}) async {
     final response = await http
-        .get(Uri.parse(baseUrlEmulator + 'items'), headers: <String, String>{
+        .get(Uri.parse(baseUrlEmulator + 'category'), headers: <String, String>{
       'Content-Type': 'application/json;  charset=UTF-8',
       'Authorization': token.toString(),
     });
 
     if (response.statusCode == 200) {
-      var data = jsonDecode(response.body)['items'] as List;
+      List data = jsonDecode(response.body)['category'];
 
-      final items = data.map((e) => Item.fromJson(e)).toList();
-
-      return items;
+      return data;
     } else {
       throw (jsonDecode(response.body)['message']);
     }

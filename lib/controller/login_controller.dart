@@ -62,7 +62,10 @@ class LoginController extends GetxController {
     UserSession.token = "";
     UserSession.roleId = 0;
     UserSession.status = "";
+    // emailController.text = "";
+    // passwordController = "";
     Get.offNamed('/login');
+    Get.snackbar('Logout', "Anda telah logout");
   }
 
   void changeShow() {
