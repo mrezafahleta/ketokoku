@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:ketokoku/models/category.dart';
 import 'package:ketokoku/models/item.dart';
 import 'package:ketokoku/models/user_session.dart';
@@ -9,7 +10,8 @@ import 'package:ketokoku/services/items_services.dart';
 class ItemController extends GetxController {
   final tanggalController = TextEditingController();
 
-  var tanggal_sekarang = DateTime.now().obs;
+  DateTime _selectedDate = DateTime.now();
+  DateTime tanggaldb = DateTime.now();
 
   RxInt namaCategory = 0.obs;
   RxString namaItem = "".obs;
@@ -40,12 +42,16 @@ class ItemController extends GetxController {
   getDate() async {
     DateTime? pickedDate = await showDatePicker(
         context: Get.context!,
-        initialDate: DateTime.now(),
+        initialDate: _selectedDate,
         firstDate: DateTime(1950),
         lastDate: DateTime(2050));
 
     if (pickedDate != null) {
-      tanggalController.text = pickedDate.toString();
+      _selectedDate = pickedDate;
+      var date =
+          "${pickedDate.toLocal().day}-${pickedDate.toLocal().month}-${pickedDate.toLocal().year}";
+      tanggalController.text = date;
+      tanggaldb = pickedDate;
       update();
     }
   }
@@ -88,11 +94,28 @@ class ItemController extends GetxController {
 
   Future<void> simpanData() async {
     final isValid = formKey.currentState!.validate();
-
     if (isValid) {
       formKey.currentState!.save();
-      Get.snackbar('berhasil',
-          'Category: $namaCategory, Jumlah: $jumlahItem, Harga : $hargaItem, Tanggal : ${tanggalController.text}');
+      try {
+      
+        await ItemService().postItems(
+            token: UserSession.token,
+            userId: UserSession.id,
+            categoriId: namaCategory.value,
+            namaItem: namaItem.value,
+              harga: hargaItem.value,
+            jumlah: jumlahItem.value,
+          
+            tanggal: tanggaldb.toString());
+            tanggalController.text = "";
+        Get.back();
+        fetchItem();
+      
+        Get.snackbar('Berhasil', '${namaItem.value} berhasil disimpan');
+      } catch (e) {
+        print(e.toString());
+        Get.snackbar('Gagal', e.toString());
+      }
     }
   }
 }

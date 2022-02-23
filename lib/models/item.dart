@@ -29,7 +29,7 @@ class Item {
         category: json['category'] == null
             ? json['category']
             : Category?.fromJson(json['category']),
-        namaItems: json['item'],
+        namaItems: json['nama_item'],
         harga: json['harga'],
         hargaRp: json['harga_rupiah'],
         jumlah: json['jumlah'],
@@ -41,7 +41,7 @@ class Item {
       'id': id,
       'user': user,
       'category': category,
-      'item': namaItems,
+      'nama_item': namaItems,
       'harga': harga,
       'harga_rupiah': hargaRp,
       'jumlah': jumlah,

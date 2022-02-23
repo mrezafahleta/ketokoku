@@ -1,9 +1,9 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import 'package:ketokoku/controller/item_controller.dart';
 import 'package:ketokoku/models/category.dart';
+import 'package:intl/intl.dart';
 
 class TambahItem extends StatelessWidget {
   const TambahItem(this.controller, {Key? key}) : super(key: key);
@@ -13,7 +13,7 @@ class TambahItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Input Barang'),
@@ -90,7 +90,7 @@ class TambahItem extends StatelessWidget {
                 TextFormField(
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
-                      labelText: 'Jumlah item', border: OutlineInputBorder()),
+                      labelText: 'Harga item', border: OutlineInputBorder()),
                   validator: (value) {
                     if (value == "") {
                       return 'Field Harga item tidak boleh kosong';
@@ -98,9 +98,9 @@ class TambahItem extends StatelessWidget {
                       return null;
                     }
                   },
-                  // onChanged: (value) {
-                  //   controller.hargaItem.value = value;
-                  // },
+                  onChanged: (value) {
+                    controller.hargaItem.value = int.parse(value);
+                  },
                 ),
                 const SizedBox(
                   height: 15,
@@ -108,7 +108,7 @@ class TambahItem extends StatelessWidget {
                 TextFormField(
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
-                      labelText: 'Harga item', border: OutlineInputBorder()),
+                      labelText: 'Jumlah item', border: OutlineInputBorder()),
                   validator: (value) {
                     if (value == "") {
                       return 'Field Jumlah item tidak boleh kosong';
@@ -117,7 +117,7 @@ class TambahItem extends StatelessWidget {
                     }
                   },
                   onChanged: (value) {
-                    controller.namaItem.value = value;
+                    controller.jumlahItem.value = int.parse(value);
                   },
                 ),
                 const SizedBox(
@@ -126,6 +126,8 @@ class TambahItem extends StatelessWidget {
                 TextFormField(
                     controller: controller.tanggalController,
                     onTap: () => controller.getDate(),
+                    onSaved: (value) =>
+                        controller.tanggalController.text = value.toString(),
                     showCursor: true,
                     autofocus: false,
                     decoration: InputDecoration(
